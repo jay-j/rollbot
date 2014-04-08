@@ -9,6 +9,8 @@ from path import *
 # TODO imaging
 
 ######################### SETUP ######################### 
+robot = robotLoc(0.0, 0.0, 0.0)
+
 # motor setup
 e1 = encoder()
 e2 = encoder()
@@ -30,20 +32,21 @@ def robotMain():
 		# TODO getSensorData() here
 		# TODO update odometry
 
+		# TODO print state changes
 		if mainState == S['INIT'];
 			e1.zero()
 			e2.zero()
+			pathIndex = 0 # preset the first goal
+			mainState = S['PATH']
 
 		elif mainState == S['PATH']:
-			
-
-			# set goal = (x,y)
-			# set gotoState = G['INIT']
-			mainState = S['GOTO']
-
-			# store which path index we're going to
-			# grab the next index off the list for sending to goto
-			# goal = path[i]
+			# if robot is not at the location specified by its path index, drive. else, photo!
+			if not robot == path[pathIndex]:
+				goal = path[pathIndex]
+				gotoState = G['INIT']
+				mainState = S['GOTO']	
+			else:
+				mainState = S['PHOTO']
 
 		elif mainState == S['GOTO']:
 			# move!
@@ -57,7 +60,11 @@ def robotMain():
 			print "[STATUS] TAKE PHOTO!"
 			print "         BLANK"
 			
-			mainState = S['PATH']
+			if pathIndex == len(path)-1: # path done!
+				mainState = S['XMIT']
+			else:
+				pathIndex += 1
+				mainState = S['PATH']
 
 		elif mainState == S['XMIT']:
 			print "[STATUS] TRANSMITTING DATA."
