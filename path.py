@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # PATH DATA
+# in "loc" objects from stateDriver.py
+# each point is a location to take a photo at
 path = []
 
 # bottom row
