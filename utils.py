@@ -9,9 +9,9 @@ class robot:
 	th = 0.0
 
 	# key dimensions / parameters
-	TICS_PER_INCH = 360.0/(pi*9.0)
+	TICS_PER_INCH = 360.0/(pi*9.125)
 	INCH_PER_TIC = 1.0 / float(TICS_PER_INCH)
-	WIDTH = 11.0
+	WIDTH = 11.25
 
 # measure shortest angle from start to goal
 # signs are correct, +/- pi flip is handled correctly
