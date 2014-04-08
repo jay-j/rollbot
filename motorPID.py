@@ -18,10 +18,10 @@ class motor:
 		PWM.start(self.pin_pwm, 0.0)
 
 		# motor/pid params
-		self.kv = 0.1
-		self.kp = 0.1
-		self.ki = 0.
-		self.kd = 0.
+		self.kv = 0.1 # TODO
+		self.kp = 0.1 # TODO
+		self.ki = 0.0 # TODO
+		self.kd = 0.0 # TODO
 		self.integralReset()
 
 		# save encoder class link
