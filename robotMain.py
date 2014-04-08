@@ -6,7 +6,6 @@ from utils import *
 from odometry import *
 from stateDriver import *
 from path import *
-# TODO compass?
 # TODO imaging
 
 ######################### SETUP ######################### 
@@ -16,7 +15,6 @@ e2 = encoder()
 m1 = motor("P8_1", "P8_2", "P8_3", e1)
 m2 = motor("P8_4", "P8_5", "P8_6", e2)
 
-
 ######################### TMP SETUP ######################### 
 gotoState = G['TURN1_INIT']
 goal = loc(1,1,-1)
@@ -25,15 +23,20 @@ print "Driving FROM", [robot.x, robot.y, robot.th], "TO", [goal.x, goal.y, goal.
 ######################### ROBOT MAIN ######################### 
 S = {'INIT':0, 'PATH':1, 'GOTO':2, 'PHOTO':3, 'XMIT':4, 'STOP':5}
 mainState = S['INIT']
+prevState = S['STOP']
 
 def robotMain():
 	while True:
-		# TODO getSensorData()
+		# TODO getSensorData() here
+		# TODO update odometry
 
 		if mainState == S['INIT'];
-			
+			e1.zero()
+			e2.zero()
 
 		elif mainState == S['PATH']:
+			
+
 			# set goal = (x,y)
 			# set gotoState = G['INIT']
 			mainState = S['GOTO']
@@ -42,7 +45,7 @@ def robotMain():
 			# grab the next index off the list for sending to goto
 			# goal = path[i]
 
-		elif mainState == S['GOTO']
+		elif mainState == S['GOTO']:
 			# move!
 			gotoState = goto(goal, gotoState)
 
@@ -50,10 +53,27 @@ def robotMain():
 			if gotoState == G['STOP']:
 				mainState == S['PATH']
 
-		elif mainState == 
+		elif mainState == S['PHOTO']:
+			print "[STATUS] TAKE PHOTO!"
+			print "         BLANK"
+			
+			mainState = S['PATH']
 
-		sleep(.05)
+		elif mainState == S['XMIT']:
+			print "[STATUS] TRANSMITTING DATA."
+			print "         BLANK"
 
+		elif mainState == S['STOP']:
+			print "[STATUS] STOPPED."
+			m1.stop()
+			m2.stop()
+
+		else:
+			print "[ERROR] STATE", mainState, "NOT RECOGNIZED. WILL STOP."
+			mainState = S['STOP']
+
+		sleep(.01) # don't overload!
+		# end of while loop
 
 	print "[STATUS] REACHED MAIN END"
 
