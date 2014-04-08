@@ -79,6 +79,19 @@ def robotMain():
 
 
 ######################### USAGE ######################### 
+# since robotMain() is a function, we can easily comment it
+# then control the robot manually via a python terminal
 #robotMain()
 
-m1.run(6.0)
+######################### ROBOT DEV TESTING #########################
+## Test 1 ##
+# check to see if raw motor commands work, if direction is as expected
+# m1.run(6.0)
+# m2.run(6.0)
+
+## Test 2 ##
+# test encoder raw values...
+
+## Test 3 ##
+# motor pid (position control)
+# m1.pid(3.,10.)
