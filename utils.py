@@ -2,12 +2,20 @@
 # Robot Utils
 from math import *
 
-class robot:
-	# current (measured) state
-	x = 0.0
-	y = 0.0
-	th = 0.0
+class loc:
+	def __init__(self, x, y, th):
+		self.x = x
+		self.y = y
+		self.th = th
 
+	def __eq__(self, other):
+		# check if robot state is APPROX equal
+		TOLX = 0.2
+		TOLA = radians(10.)
+		dist = sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+		return (dist < TOLX and fabs(measureAngle(self.th, other.th)) < TOLA)
+
+class robotLoc(loc):
 	# key dimensions / parameters
 	TICS_PER_INCH = 360.0/(pi*9.125)
 	INCH_PER_TIC = 1.0 / float(TICS_PER_INCH)

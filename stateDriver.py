@@ -3,13 +3,6 @@ from datetime import datetime as clock # interpolation
 from time import sleep # for simulation (debugging)
 from motorPID import *
 
-######################### GENERAL #########################
-class loc:
-	def __init__(self, x, y, th):
-		self.x = x
-		self.y = y
-		self.th = th
-
 ######################### INTERPOLATOR ######################### 
 class smoothStatus:
 	def __init__(self):
